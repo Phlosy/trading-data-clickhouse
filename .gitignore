@@ -1,0 +1,26 @@
+# ClickHouse 数据目录
+data/
+
+# ClickHouse 日志目录
+logs/
+
+# 备份数据目录
+backup/
+
+# 临时文件
+*.tmp
+*.temp
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE 配置文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker 相关
+.dockerignore
+
