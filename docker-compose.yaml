@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   trading-data-clickhouse:
-    image: trading-data-clickhouse:v1.0.0
+    image: trading-data-clickhouse:v1.0.1
     container_name: trading-data-clickhouse
     hostname: trading-data-clickhouse
     ports:
