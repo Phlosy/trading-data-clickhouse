@@ -1,6 +1,6 @@
 # 变量定义
 IMAGE_NAME = trading-data-clickhouse
-IMAGE_TAG = v1.0.0
+IMAGE_TAG = v1.0.1
 CONTAINER_NAME = trading-data-clickhouse
 HTTP_PORT = 8123
 NATIVE_PORT = 9000
@@ -31,11 +31,12 @@ help:
 
 # 构建 Docker 镜像
 docker-build:
-	docker build -t $(IMAGE_NAME):$(IMAGE_TAG) .
+	./prepare.sh
+	sudo docker build -t $(IMAGE_NAME):$(IMAGE_TAG) .
 
 # 运行 Docker 容器
 docker-run:
-	docker run -d \
+	sudo docker run -d \
 		--name $(CONTAINER_NAME) \
 		-p $(HTTP_PORT):8123 \
 		-p $(NATIVE_PORT):9000 \
@@ -43,24 +44,28 @@ docker-run:
 		-v $(LOGS_DIR):/var/log/clickhouse-server \
 		$(IMAGE_NAME):$(IMAGE_TAG)
 
+
 # 停止并删除容器
 docker-stop:
-	docker stop $(CONTAINER_NAME)
-	docker rm $(CONTAINER_NAME)
+	sudo docker stop $(CONTAINER_NAME)
+	sudo docker rm $(CONTAINER_NAME)
 
 # 查看容器日志
 docker-logs:
-	docker logs -f $(CONTAINER_NAME)
+	sudo docker logs -f $(CONTAINER_NAME)
 
 # 进入容器
 docker-exec:
-	docker exec -it $(CONTAINER_NAME) /bin/bash
+	sudo docker exec -it $(CONTAINER_NAME) /bin/bash
 
 # 重启容器
 docker-restart:
-	docker restart $(CONTAINER_NAME)
+	sudo docker restart $(CONTAINER_NAME)
 
-
+# 清理数据
+clean-data:
+	sudo rm -rf $(DATA_DIR)
+	sudo rm -rf $(LOGS_DIR)
 
 
 
